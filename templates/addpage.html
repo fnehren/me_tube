@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+</head>
+<body>
+    <button type="button" onclick="showForm('Channel')" id="addChan">Add new channel</button>
+    <button type="button" onclick="showForm('Playlist')" id="addPlay">Add new playlist</button>
+
+    <script type="text/javascript">
+        function showForm(thisType) {
+            document.getElementById("addChan").style.display = "none";
+            document.getElementById("addPlay").style.display = "none";
+            
+            document.getElementById("type").value = thisType;
+            document.getElementById("changeURL").innerHTML = thisType + " URL:";
+            document.getElementById("changeName").innerHTML = thisType + " Name:";
+            document.getElementById("inputForm").style.display = "block";
+        }
+    </script>
+
+    <form hidden id="inputForm" method="POST" action="/addthanks">
+        <input hidden id="type" name="type" value="TYPE" />
+        <table>
+            <tr><td><p id="changeURL">TYPE</p></td><td><input type="text" name="URL" /></td></tr>
+            <tr><td><p id="changeName">TYPE</p></td><td><input type="text" name="name" /></td></tr>
+        </table>
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+
+
+</body>
+</html>

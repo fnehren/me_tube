@@ -1,0 +1,5 @@
+main main main main:
+	get driver set up, go to YouTube main page
+	have html button that triggers adding a new channel
+	also, have function to display all channels on left (indiv scrollable, but stays on main scroll)
+	get list of channels, send to thing that will display them one by one

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <script type="text/javascript">
+        function addToCol(link, numCol) {
+            document.getElementById(numCol).innerHTML += " <iframe>" + link + "</iframe>";
+        }
+    </script>
+
+    <div class="row">
+        <div id="col1" class="column"> <p id="p1"></p> </div>
+        <div id="col2" class="column"> <p id="p2"></p> </div>
+        <div id="col3" class="column"> <p id="p3"></p> </div>
+        <div id="col4" class="column"> <p id="p4"></p> </div>
+        <div id="col5" class="column"> <p id="p5"></p> </div>
+    </div>
+
+    {% for entry in embedDict %}
+        <script type="text/javascript"> 
+            document.getElementById("p" + "{{ embedDict[entry] }}").innerHTML += "<iframe src='{{ entry }}'></iframe>"; 
+        </script>    
+    {% endfor %}
+
+</body>
+</html>

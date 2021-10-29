@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <button type="button" onclick="rmObj('channel')" id="rmChan">Remove Channel</button>
+    <button type="button" onclick="rmObj('playlist')" id="rmPlay">Remove Playlist</button>
+
+    <script type="text/javascript">
+        function rmObj(thisType) {
+            document.getElementById("rmChan").style.display = "none";
+            document.getElementById("rmPlay").style.display = "none";
+            
+            document.getElementById("type").value = thisType;
+            document.getElementById("typeOfRm").innerHTML = "Select "+ thisType + "(s) to remove:";
+
+            if (thisType == "channel") {
+                document.getElementById("allChannels").style.display = "block";
+                document.getElementById("finalChannels").style.display = "block";
+            } else if (thisType == "playlist") {
+                document.getElementById("allPlaylists").style.display = "block";
+                document.getElementById("finalPlaylists").style.display = "block";
+            }
+
+            document.getElementById("inputForm").style.display = "block";
+        }
+
+        function showCheck() {
+            document.getElementById("check").style.display = "block";
+        }
+
+        function hideCheck() {
+            document.getElementById("check").style.display = "none";
+        }
+    </script>
+
+    <form hidden id="inputForm" method='POST' action="/rmthanks">
+        <input hidden id="type" name="type" value="TYPE" />
+        <h3><p id="typeOfRm">TYPE</p></h3>
+
+        <ul hidden id="allChannels">
+            {% for channel in chanNamesList %}
+                <li><input onclick="chanIsShown('{{ channel }}')" type="checkbox" id="channel_{{ channel }}" name="channel_{{ channel }}" value="{{ channel }}" />{{ channel }}</li>
+            {% endfor %}
+        </ul>
+        <ul hidden id="allPlaylists">
+            {% for playlist in playNamesList %}
+                <li><input onclick="playIsShown('{{ playlist }}')" type="checkbox" id="playlist_{{ playlist }}" name="playlist_{{ playlist }}" value="{{ playlist }}" />{{ playlist }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h5 onclick="showCheck()">Check Submit</h5>
+
+        <div hidden id="check">
+            <h3>Are these correct?</h3>
+
+            <ul hidden id="finalChannels">
+                {% for channel in chanNamesList %}
+                    <li id="finalChan_{{ channel }}" style="display:none">{{ channel }}</li>
+                {% endfor %}
+            </ul>
+    
+            <ul hidden id="finalPlaylists">
+                {% for playlist in playNamesList %}
+                    <li id="finalPlay_{{ playlist }}" style="display:none">{{ playlist }}</li>
+                {% endfor %}
+            </ul>
+    
+            <input form="inputForm" type="submit" name="submit" value="Yes" />
+            <h5 onclick="hideCheck()">No</h5>
+        </div>
+
+        <script type="text/javascript">
+            function chanIsShown(item) {
+                var chan = document.getElementById("channel_" + item);
+                var chanToChange = document.getElementById("finalChan_" + item);
+
+                if (chan.checked == true) {
+                    chanToChange.style.display = "block";
+                } else {
+                    chanToChange.style.display = "none";
+                }
+            }
+
+            function playIsShown(item) {
+                var play = document.getElementById("playlist_" + item);
+                var playToChange = document.getElementById("finalPlay_" + item);
+
+                if (play.checked == true) {
+                    playToChange.style.display = "block";
+                } else {
+                    playToChange.style.display = "none";
+                }
+            }
+        </script>
+
+    </form>
+</body>
+</html>
